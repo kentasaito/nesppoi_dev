@@ -3,7 +3,7 @@ import { Container } from './Container.js';
 export class Sprite extends Container {
 
 	// コンストラクタ
-	constructor(tiles, parent, paletteIndex = 0, x = 0, y = 0, rotate = 0, scaleX = 1, scaleY = 1, tileKey = 0) {
+	constructor(tiles, parent, paletteIndex = 0, x = 0, y = 0, rotate = 0, scaleX = 1, scaleY = 1, tileIndex = 0) {
 		super(tiles, Object.keys(tiles), parent, paletteIndex, x, y);
 
 		this.element.style.width = tiles[0][0].length + 'px';
@@ -30,20 +30,20 @@ export class Sprite extends Container {
 				this.element.style.transform = `rotate(${this._rotate || 0}deg) scale(${this._scaleX || 1}, ${this._scaleY || 1})`;
 			},
 		});
-		Object.defineProperty(this, 'tileKey', {
-			get: () => this._tileKey,
+		Object.defineProperty(this, 'tileIndex', {
+			get: () => this._tileIndex,
 			set: value => {
-				this._tileKey = (this.tiles.length + value) % this.tiles.length;
+				this._tileIndex = (this.tiles.length + value) % this.tiles.length;
 				for (const scene of this.tiles) {
 					scene.style.visibility = 'hidden';
 				}
-				this.tiles[this._tileKey].style.visibility = 'visible';
+				this.tiles[this._tileIndex].style.visibility = 'visible';
 			},
 		});
 
 		this.rotate = rotate;
 		this.scaleX = scaleX;
 		this.scaleY = scaleY;
-		this.tileKey = tileKey;
+		this.tileIndex = tileIndex;
 	}
 }

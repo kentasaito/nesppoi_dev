@@ -36,7 +36,7 @@ export class Rom {
 	static onFrame() {
 		for (let i = 0; i < 2; i++) {
 
-			// Aボタン
+			// Aボタンが押されていれば
 			if (System.pads[i].buttons[0]) {
 				if (this.players[i].y === 8 * 25) {
 					this.players[i].vy = -72;
@@ -47,7 +47,7 @@ export class Rom {
 				}
 			}
 
-			// 右
+			// 右が押されていれば
 			if (System.pads[i].buttons[7]) {
 				if (this.players[i].y === 8 * 25) {
 					if (this.players[i].vx < 32) {
@@ -61,7 +61,7 @@ export class Rom {
 				this.players[i].scaleX = -1;
 			}
 
-			// 左
+			// 左が押されていれば
 			if (System.pads[i].buttons[6]) {
 				if (this.players[i].y === 8 * 25) {
 					if (this.players[i].vx > -32) {
@@ -75,25 +75,26 @@ export class Rom {
 				this.players[i].scaleX = 1;
 			}
 
-			// 停止中
-			if (this.players[i].vx === 0) {
-				this.players[i].tileKey = 0;
-			}
-
 			// 位置更新
 			this.players[i].x += Math.trunc(this.players[i].vx / 8);
 			this.players[i].y += Math.trunc(this.players[i].vy / 8);
 
-			// 着地中
-			if (this.players[i].y === 8 * 25) {
-				this.players[i].vx -= Math.sign(this.players[i].vx);
-			}
-
-			// 地面めり込み
+			// 着地中なら
 			if (this.players[i].y >= 8 * 25) {
+
+				// X軸の速度は減速
+				this.players[i].vx -= Math.sign(this.players[i].vx);
+
+				// Y軸の速度は0
 				this.players[i].vy = 0;
+
+				// 地面にはめり込まない
 				this.players[i].y = 8 * 25;
-			} else {
+			}
+			// 着地していなければ
+			else {
+
+				// 下に加速
 				this.players[i].vy += 2;
 			}
 		}
