@@ -4,9 +4,12 @@ import { Background } from '../../classes/graphic/Background.js';
 import { Text } from '../../classes/graphic/Text.js';
 import { parameters } from './parameters.js';
 
+// ロム
 export class Rom {
 
+	// 開始時
 	static async onLoad() {
+
 		// パラメータ
 		this.parameters = parameters;
 
@@ -43,6 +46,7 @@ export class Rom {
 		new Text(font, 'make your own original game!', System.screen, 16, 8 * 2, 8 * 16);
 	}
 
+	// フレーム時
 	static onFrame() {
 
 		// 両プレイヤーについて
