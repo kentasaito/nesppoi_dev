@@ -34,46 +34,9 @@ export class Rom {
 	}
 
 	static onFrame() {
+
+		// 両プレイヤーについて
 		for (let i = 0; i < 2; i++) {
-
-			// Aボタンが押されていれば
-			if (System.pads[i].buttons[0]) {
-				if (this.players[i].y === 8 * 25) {
-//					this.players[i].vy = -72;
-				}
-			} else {
-				if (this.players[i].y < 8 * 25) {
-//					this.players[i].vy += 4;
-				}
-			}
-
-			// 右が押されていれば
-			if (System.pads[i].buttons[7]) {
-				if (this.players[i].y === 8 * 25) {
-					if (this.players[i].vx < 32) {
-						this.players[i].vx = 32;
-					}
-				} else {
-					if (this.players[i].vx < 12) {
-						this.players[i].vx += 2;
-					}
-				}
-				this.players[i].scaleX = -1;
-			}
-
-			// 左が押されていれば
-			if (System.pads[i].buttons[6]) {
-				if (this.players[i].y === 8 * 25) {
-					if (this.players[i].vx > -32) {
-						this.players[i].vx = -32;
-					}
-				} else {
-					if (this.players[i].vx > -12) {
-						this.players[i].vx -= 2;
-					}
-				}
-				this.players[i].scaleX = 1;
-			}
 
 			// 位置更新
 			this.players[i].x += Math.trunc(this.players[i].vx / 8);
@@ -93,21 +56,61 @@ export class Rom {
 
 				// Aボタンが押されていれば
 				if (System.pads[i].buttons[0]) {
+
+					// 上に加速
 					this.players[i].vy = -72;
+				}
+
+				// 右が押されていたら
+				if (System.pads[i].buttons[7]) {
+
+					// 右に加速
+					this.players[i].vx = 32;
+				}
+
+				// 左が押されていたら
+				if (System.pads[i].buttons[6]) {
+
+					// 右に加速
+					this.players[i].vx = -32;
 				}
 			}
 			// 着地していなければ
 			else {
 
 				// 下に加速
-				this.players[i].vy += 2;
+				this.players[i].vy += 6;
 
-				// Aボタンが押されていなければ
-				if (!System.pads[i].buttons[0]) {
+				// Aボタンが押されていれば
+				if (System.pads[i].buttons[0]) {
 
-					// 更に下に加速
-					this.players[i].vy += 4;
+					// 上に加速
+					this.players[i].vy -= 4;
 				}
+
+				// 右が押されていて、一定速度以下なら
+				if (System.pads[i].buttons[7] && this.players[i].vx < 12) {
+
+					// 右に加速
+					this.players[i].vx += 2;
+				}
+
+				// 左が押されていて、一定速度以下なら
+				if (System.pads[i].buttons[6] && this.players[i].vx > -12) {
+
+					// 左に加速
+					this.players[i].vx -= 2;
+				}
+			}
+
+			// 右が押されていれば
+			if (System.pads[i].buttons[7]) {
+				this.players[i].scaleX = -1;
+			}
+
+			// 左が押されていれば
+			if (System.pads[i].buttons[6]) {
+				this.players[i].scaleX = 1;
 			}
 		}
 	}
