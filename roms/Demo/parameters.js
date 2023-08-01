@@ -4,6 +4,20 @@ export const parameters = {
 	landingLevel: 8 * 25,
 
 
+	/* ロード時 */
+	// X軸位置
+	onLoadX: 0,
+
+	// Y軸位置
+	onLoadY: 8 * 6,
+
+	// X軸速度
+	onLoadVelocityX: 16,
+
+	// Y軸速度
+	onLoadVelocityY: -64,
+
+
 	/* 着地時 */
 	// 地面の摩擦
 	friction: 1,

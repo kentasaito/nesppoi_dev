@@ -7,7 +7,7 @@ import { parameters } from './parameters.js';
 // ロム
 export class Rom {
 
-	// 開始時
+	// ロード時
 	static async onLoad() {
 
 		// パラメータ
@@ -22,9 +22,17 @@ export class Rom {
 		// プレイヤー
 		this.players = [];
 		for (let i = 0; i < 2; i++) {
-			this.players[i] = new Sprite((await import(`./assets/tiles/sprites/player.js`)).tiles, System.screen, i, 8 * [0, 30][i], 8 * 6, 0, [-1, 1][i]);
-			this.players[i].vx = [16, -16][i];
-			this.players[i].vy = -64;
+			this.players[i] = new Sprite(
+				(await import(`./assets/tiles/sprites/player.js`)).tiles,
+				System.screen,
+				i,
+				[this.parameters.onLoadX, 8 * 30 - this.parameters.onLoadX][i],
+				this.parameters.onLoadY,
+				0,
+				[-1, 1][i],
+			);
+			this.players[i].vx = [this.parameters.onLoadVelocityX, -this.parameters.onLoadVelocityX][i];
+			this.players[i].vy = this.parameters.onLoadVelocityY;
 		}
 
 		// 背景
@@ -34,7 +42,7 @@ export class Rom {
 			System.screen,
 			15,
 			0,
-			this.parameters.landingLevel + 16
+			this.parameters.landingLevel + 16,
 		);
 
 		// テキスト
