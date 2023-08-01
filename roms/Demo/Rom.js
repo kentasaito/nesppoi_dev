@@ -75,16 +75,6 @@ export class Rom {
 				this.players[i].scaleX = 1;
 			}
 
-			// 下
-			if (System.pads[i].buttons[5]) {
-				if (this.players[i].y === 8 * 25) {
-					this.players[i].vx -= Math.sign(this.players[i].vx);
-					this.players[i].tileKey = 1;
-				}
-			} else {
-				this.players[i].tileKey = 0;
-			}
-
 			// 停止中
 			if (this.players[i].vx === 0) {
 				this.players[i].tileKey = 0;
