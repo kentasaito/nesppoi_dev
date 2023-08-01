@@ -2,10 +2,13 @@ import { System } from '../../System.js';
 import { Sprite } from '../../classes/graphic/Sprite.js';
 import { Background } from '../../classes/graphic/Background.js';
 import { Text } from '../../classes/graphic/Text.js';
+import { parameters } from './parameters.js';
 
 export class Rom {
 
 	static async onLoad() {
+		// パラメータ
+		this.parameters = parameters;
 
 		// 色
 		System.setColors((await import('../../assets/colors/nes.js')).colors);
@@ -22,7 +25,14 @@ export class Rom {
 		}
 
 		// 背景
-		new Background((await import(`./assets/tiles/backgrounds/main.js`)).tiles, (await import(`./assets/pattern/main.js`)).pattern, System.screen, 15, 8 * 0, 8 * 27);
+		new Background(
+			(await import(`./assets/tiles/backgrounds/main.js`)).tiles, 
+			(await import(`./assets/pattern/main.js`)).pattern,
+			System.screen,
+			15,
+			0,
+			this.parameters.landingLevel + 16
+		);
 
 		// テキスト
 		const font = (await import('../../assets/font/misakiGothic2nd.js')).font;
@@ -43,63 +53,63 @@ export class Rom {
 			this.players[i].y += Math.trunc(this.players[i].vy / 8);
 
 			// 着地中なら
-			if (this.players[i].y >= 8 * 25) {
+			if (this.players[i].y >= this.parameters.landingLevel) {
 
 				// X軸の速度は減速
-				this.players[i].vx -= Math.sign(this.players[i].vx);
+				this.players[i].vx += Math.sign(-this.players[i].vx) * this.parameters.friction;
 
 				// Y軸の速度は0
 				this.players[i].vy = 0;
 
 				// 地面にはめり込まない
-				this.players[i].y = 8 * 25;
+				this.players[i].y = this.parameters.landingLevel;
 
 				// Aボタンが押されていれば
 				if (System.pads[i].buttons[0]) {
 
 					// 上に加速
-					this.players[i].vy = -72;
+					this.players[i].vy = this.parameters.initialVelocityY;
 				}
 
 				// 右が押されていたら
 				if (System.pads[i].buttons[7]) {
 
 					// 右に加速
-					this.players[i].vx = 32;
+					this.players[i].vx = this.parameters.initialVelocityX;
 				}
 
 				// 左が押されていたら
 				if (System.pads[i].buttons[6]) {
 
 					// 右に加速
-					this.players[i].vx = -32;
+					this.players[i].vx = -this.parameters.initialVelocityX;
 				}
 			}
 			// 着地していなければ
 			else {
 
 				// 下に加速
-				this.players[i].vy += 6;
+				this.players[i].vy += this.parameters.gravity;
 
 				// Aボタンが押されていれば
 				if (System.pads[i].buttons[0]) {
 
 					// 上に加速
-					this.players[i].vy -= 4;
+					this.players[i].vy += this.parameters.floatingAccelerationY;
 				}
 
 				// 右が押されていて、一定速度以下なら
-				if (System.pads[i].buttons[7] && this.players[i].vx < 12) {
+				if (System.pads[i].buttons[7] && this.players[i].vx < this.parameters.floatingMaxVelocityX) {
 
 					// 右に加速
-					this.players[i].vx += 2;
+					this.players[i].vx += this.parameters.floatingAccelerationX;
 				}
 
 				// 左が押されていて、一定速度以下なら
-				if (System.pads[i].buttons[6] && this.players[i].vx > -12) {
+				if (System.pads[i].buttons[6] && this.players[i].vx > -this.parameters.floatingMaxVelocityX) {
 
 					// 左に加速
-					this.players[i].vx -= 2;
+					this.players[i].vx += -this.parameters.floatingAccelerationX;
 				}
 			}
 
