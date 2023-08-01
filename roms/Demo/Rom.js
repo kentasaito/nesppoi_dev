@@ -39,11 +39,11 @@ export class Rom {
 			// Aボタンが押されていれば
 			if (System.pads[i].buttons[0]) {
 				if (this.players[i].y === 8 * 25) {
-					this.players[i].vy = -72;
+//					this.players[i].vy = -72;
 				}
 			} else {
 				if (this.players[i].y < 8 * 25) {
-					this.players[i].vy += 4;
+//					this.players[i].vy += 4;
 				}
 			}
 
@@ -90,12 +90,24 @@ export class Rom {
 
 				// 地面にはめり込まない
 				this.players[i].y = 8 * 25;
+
+				// Aボタンが押されていれば
+				if (System.pads[i].buttons[0]) {
+					this.players[i].vy = -72;
+				}
 			}
 			// 着地していなければ
 			else {
 
 				// 下に加速
 				this.players[i].vy += 2;
+
+				// Aボタンが押されていなければ
+				if (!System.pads[i].buttons[0]) {
+
+					// 更に下に加速
+					this.players[i].vy += 4;
+				}
 			}
 		}
 	}
