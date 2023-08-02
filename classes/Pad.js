@@ -12,8 +12,8 @@ export class Pad {
 			document.querySelector(`#keyboardPads${this.padIndex} .keys${keyIndex}`).value = this.keys[keyIndex];
 		}
 
-		this.axesIndexes = [[0, 1], [0, -1], [1, 1], [1, -1]];
-		this.buttonIndexes = [8, 9, 0, 1];
+		this.axesIndexes = Array(4).fill([null, null]);
+		this.buttonIndexes = Array(4).fill(null);
 
 		document.addEventListener('keydown', () => {
 			const keyIndex = this.keys.indexOf(event.key);
