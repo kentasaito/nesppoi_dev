@@ -33,8 +33,8 @@ export class Pad {
 		Object.defineProperty(this, 'axes', {
 			get: () => {
 				return {
-					x: this.gamepad && this.inputIndexes[0] && this.inputIndexes[1] && ((this.gamepad.axes[this.inputIndexes[0][0]] === this.inputIndexes[0][1]) - (this.gamepad.axes[this.inputIndexes[1][0]] === this.inputIndexes[1][1])) || this.keydown[0] - this.keydown[1],
-					y: this.gamepad && this.inputIndexes[2] && this.inputIndexes[3] && ((this.gamepad.axes[this.inputIndexes[2][0]] === this.inputIndexes[2][1]) - (this.gamepad.axes[this.inputIndexes[3][0]] === this.inputIndexes[3][1])) || this.keydown[2] - this.keydown[3],
+					x: this.gamepad && this.inputIndexes[0] && this.inputIndexes[1] && ((this.gamepad.axes[this.inputIndexes[1][0]] === this.inputIndexes[1][1]) - (this.gamepad.axes[this.inputIndexes[0][0]] === this.inputIndexes[0][1])) || this.keydown[1] - this.keydown[0],
+					y: this.gamepad && this.inputIndexes[2] && this.inputIndexes[3] && ((this.gamepad.axes[this.inputIndexes[3][0]] === this.inputIndexes[3][1]) - (this.gamepad.axes[this.inputIndexes[2][0]] === this.inputIndexes[2][1])) || this.keydown[3] - this.keydown[2],
 				}
 			},
 		});
