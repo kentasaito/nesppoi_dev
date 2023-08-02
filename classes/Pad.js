@@ -12,7 +12,7 @@ export class Pad {
 		}
 
 		this.axesIndexes = [0, 1];
-		this.axesValues = [1, -1];
+		this.axesValues = [[1, -1], [1, -1]];
 		this.buttonIndexes = [8, 9, 0, 1];
 
 		document.addEventListener('keydown', () => {
@@ -33,8 +33,8 @@ export class Pad {
 		Object.defineProperty(this, 'axes', {
 			get: () => {
 				return {
-					x: this.gamepad && ((this.gamepad.axes[this.axesIndexes[0]] === this.axesValues[0]) - (this.gamepad.axes[this.axesIndexes[0]] === this.axesValues[1])) || this.keydown[0] - this.keydown[1],
-					y: this.gamepad && ((this.gamepad.axes[this.axesIndexes[1]] === this.axesValues[0]) - (this.gamepad.axes[this.axesIndexes[1]] === this.axesValues[1])) || this.keydown[2] - this.keydown[3],
+					x: this.gamepad && ((this.gamepad.axes[this.axesIndexes[0]] === this.axesValues[0][0]) - (this.gamepad.axes[this.axesIndexes[0]] === this.axesValues[0][1])) || this.keydown[0] - this.keydown[1],
+					y: this.gamepad && ((this.gamepad.axes[this.axesIndexes[1]] === this.axesValues[1][0]) - (this.gamepad.axes[this.axesIndexes[1]] === this.axesValues[1][1])) || this.keydown[2] - this.keydown[3],
 				}
 			},
 		});
