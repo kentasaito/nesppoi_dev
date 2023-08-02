@@ -5,10 +5,11 @@ export class Pad {
 		this.padIndex = padIndex;
 		this.keys = [];
 		this.keydown = Array(8).fill(false);
+		this.setup = false;
 
 		for (let keyIndex = 0; keyIndex < 8; keyIndex++) {
-			this.keys[keyIndex] = localStorage.getItem(`pads${this.padIndex}_keys${keyIndex}`);
-			document.querySelector(`#pads${this.padIndex} .keys${keyIndex}`).value = this.keys[keyIndex];
+			this.keys[keyIndex] = localStorage.getItem(`keyboardPads${this.padIndex}_keys${keyIndex}`);
+			document.querySelector(`#keyboardPads${this.padIndex} .keys${keyIndex}`).value = this.keys[keyIndex];
 		}
 
 		this.axesIndexes = [0, 1];
@@ -53,11 +54,15 @@ export class Pad {
 	// キー設定
 	configKey(keyIndex, key) {
 		this.keys[keyIndex] = key;
-		localStorage.setItem(`pads${this.padIndex}_keys${keyIndex}`, this.keys[keyIndex]);
-		document.querySelector(`#pads${this.padIndex} .keys${keyIndex}`).value = this.keys[keyIndex];
-		document.querySelector(`#pads${this.padIndex} .keys${keyIndex}`).blur();
+		localStorage.setItem(`keyboardPads${this.padIndex}_keys${keyIndex}`, this.keys[keyIndex]);
+		document.querySelector(`#keyboardPads${this.padIndex} .keys${keyIndex}`).value = this.keys[keyIndex];
+		document.querySelector(`#keyboardPads${this.padIndex} .keys${keyIndex}`).blur();
 		if (keyIndex + 1 < 8) {
-			document.querySelector(`#pads${this.padIndex} .keys${(keyIndex + 1) % 8}`).focus();
+			document.querySelector(`#keyboardPads${this.padIndex} .keys${(keyIndex + 1) % 8}`).focus();
 		}
+	}
+
+	// パッド設定
+	setupPad() {
 	}
 }

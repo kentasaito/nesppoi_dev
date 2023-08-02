@@ -86,6 +86,11 @@ export class System {
 
 	// フレーム
 	static _frame() {
+		for (let i = 0; i < 2; i++) {
+			if (this.pads[i].setup) {
+				this.pads[i].setupPad();
+			}
+		}
 		this.Rom.onFrame();
 		this.AnimationFrameRequestId = requestAnimationFrame(() => this._frame());
 	}
