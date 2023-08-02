@@ -18,6 +18,26 @@ export class System {
 		this._onResize();
 
 		// ゲームパッド
+		if (!localStorage.getItem('pads0_keys0')) {
+			localStorage.setItem('pads0_keys0', '[0,-1]');
+			localStorage.setItem('pads0_keys1', '[0,1]');
+			localStorage.setItem('pads0_keys2', '[1,-1]');
+			localStorage.setItem('pads0_keys3', '[1,1]');
+			localStorage.setItem('pads0_keys4', '8');
+			localStorage.setItem('pads0_keys5', '9');
+			localStorage.setItem('pads0_keys6', '0');
+			localStorage.setItem('pads0_keys7', '1');
+		}
+		if (!localStorage.getItem('pads1_keys0')) {
+			localStorage.setItem('pads1_keys0', '[0,-1]');
+			localStorage.setItem('pads1_keys1', '[0,1]');
+			localStorage.setItem('pads1_keys2', '[1,-1]');
+			localStorage.setItem('pads1_keys3', '[1,1]');
+			localStorage.setItem('pads1_keys4', '8');
+			localStorage.setItem('pads1_keys5', '9');
+			localStorage.setItem('pads1_keys6', '0');
+			localStorage.setItem('pads1_keys7', '1');
+		}
 		if (!localStorage.getItem('keyboardPads0_keys0')) {
 			localStorage.setItem('keyboardPads0_keys0', 'j');
 			localStorage.setItem('keyboardPads0_keys1', 'l');
@@ -49,6 +69,7 @@ export class System {
 		});
 
 		// フレーム停止/再開
+		/*
 		document.addEventListener('keydown', () => {
 			if (event.key === 'Escape') {
 				if (this.AnimationFrameRequestId) {
@@ -59,6 +80,7 @@ export class System {
 				}
 			}
 		});
+		*/
 
 		// デフォルトROMロード
 		if (!localStorage.getItem('romName')) {
