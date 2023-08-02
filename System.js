@@ -15,11 +15,16 @@ export class System {
 			}
 		});
 
-		// ゲームパッド定義
+		// ゲームパッド
 		this.pads = [
 			new Pad(0),
 			new Pad(1),
 		];
+		window.addEventListener('gamepadconnected', () => {
+			if (this.pads[event.gamepad.index]) {
+				this.pads[event.gamepad.index].gamepad = event.gamepad;
+			}
+		});
 
 		// フレーム停止/再開
 		document.addEventListener('keydown', () => {
