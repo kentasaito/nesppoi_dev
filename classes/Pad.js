@@ -75,17 +75,39 @@ export class Pad {
 				for (const value of this.gamepad.axes) {
 					if (value) stillBusy = true;
 				}
+				for (const button of this.gamepad.buttons) {
+					if (button.pressed) stillBusy = true;
+				}
 			}
 			if (!stillBusy) this.busy = false;
 
-			for (const [axesIndex, value] of this.gamepad.axes.entries()) {
-				if (!this.busy && value) {
-					this.axesIndexes[this.setupIndex] = [axesIndex, value];
-					document.querySelector(`#pads${this.padIndex} .keys${this.setupIndex}`).value = JSON.stringify([axesIndex, value]);
-					this.setupIndex++;
-					document.querySelector(`#pads${this.padIndex} .keys${this.setupIndex}`).focus();
-					this.busy = true;
-					break;
+			if (this.setupIndex < 4) {
+				for (const [axesIndex, value] of this.gamepad.axes.entries()) {
+					if (!this.busy && value) {
+						this.axesIndexes[this.setupIndex] = [axesIndex, value];
+						document.querySelector(`#pads${this.padIndex} .keys${this.setupIndex}`).value = JSON.stringify([axesIndex, value]);
+						this.setupIndex++;
+						document.querySelector(`#pads${this.padIndex} .keys${this.setupIndex}`).focus();
+						this.busy = true;
+						break;
+					}
+				}
+			} else {
+				for (const [buttonIndex, button] of this.gamepad.buttons.entries()) {
+					if (!this.busy && button.pressed) {
+						this.buttonIndexes[this.setupIndex - 4] = buttonIndex;
+						document.querySelector(`#pads${this.padIndex} .keys${this.setupIndex}`).value = buttonIndex;
+						document.querySelector(`#pads${this.padIndex} .keys${this.setupIndex}`).blur();
+						this.setupIndex++;
+						if (this.setupIndex < 8) {
+							document.querySelector(`#pads${this.padIndex} .keys${this.setupIndex}`).focus();
+							this.busy = true;
+						} else {
+							this.busy = false;
+							delete this.setupIndex;
+						}
+						break;
+					}
 				}
 			}
 		}
