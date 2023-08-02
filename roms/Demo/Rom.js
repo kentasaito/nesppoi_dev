@@ -49,8 +49,8 @@ export class Rom {
 		const font = (await import('../../assets/font/misakiGothic2nd.js')).font;
 		new Text(font, '"ネスっぽい"へようこそ!', System.screen, 16, 8 * 10, 8 * 7);
 		new Text(font, 'Welcome to NESPPOI!', System.screen, 16, 8 * 7, 8 * 9);
-		new Text(font, '/roms/Demoをコピーしてオリジナルゲームをつくろう!', System.screen, 16, 8 * 1, 8 * 13);
-		new Text(font, 'Copy /roms/Demo and', System.screen, 16, 8 * 6, 8 * 15);
+		new Text(font, '/rom/Demoをコピーしてオリジナルゲームをつくろう!', System.screen, 16, 8 * 1, 8 * 13);
+		new Text(font, 'Copy /rom/Demo and', System.screen, 16, 8 * 7, 8 * 15);
 		new Text(font, 'make your own original game!', System.screen, 16, 8 * 2, 8 * 16);
 	}
 

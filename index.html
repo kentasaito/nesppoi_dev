@@ -1,16 +1,21 @@
 <!doctype html>
 <head>
 	<meta charset="utf-8">
-	<title>NESPPOI</title>
+	<title>NESPPOI NES like platform</title>
 </head>
 <body style="margin:0;">
-	<h1>NESPPOI</h1>
+	<div style="padding:0 2rem; display:flex; gap:1rem;">
+		<h1 style="margin:0.5rem 0 0;">NESPPOI</h1>
+		<h4 style="margin:0; align-self:end; flex-grow:1;">NES like platform</h4>
+		<h3 style="margin:0; align-self:end;" onclick="document.getElementById('menu').style.display = document.getElementById('menu').style.display === 'none' ? 'block' : 'none'">Menu</h3>
+	</div>
 	<hr>
 
-	<div style="margin:1rem;">
-
-		<h3>Pad 0</h3>
-		<button onclick="document.querySelector('#pads0 .keys0').disabled = false; System.pads[0].setup();">Setup</button>
+	<div id="menu" style="padding:0 2rem; display:none;">
+		<div style="display:flex; gap:1rem;">
+			<h3 style="margin:0.5rem 0 0;">Pad 0</h3>
+			<button onclick="document.querySelector('#pads0 .keys0').disabled = false; System.pads[0].setup();">Setup</button>
+		</div>
 		<div style="display:flex;" id="pads0">
 			<div>
 				<div style="text-align:center;">
@@ -51,9 +56,12 @@
 				</div>
 			</div>
 		</div>
+		<hr>
 
-		<h3>Pad 1</h3>
-		<button onclick="document.querySelector('#pads1 .keys0').disabled = false; System.pads[1].setup();">Setup</button>
+		<div style="display:flex; gap:1rem;">
+			<h3 style="margin:0.5rem 0 0;">Pad 1</h3>
+			<button onclick="document.querySelector('#pads1 .keys0').disabled = false; System.pads[1].setup();">Setup</button>
+		</div>
 		<div style="display:flex;" id="pads1">
 			<div>
 				<div style="text-align:center;">
@@ -94,9 +102,12 @@
 				</div>
 			</div>
 		</div>
+		<hr>
 
-		<h3>Keybord Pad 0</h3>
-		<button onclick="document.querySelector('#keyboardPads0 .keys0').disabled = false; document.querySelector('#keyboardPads0 .keys0').focus();">Setup</button>
+		<div style="display:flex; gap:1rem;">
+			<h3 style="margin:0.5rem 0 0;">Keybord Pad 0</h3>
+			<button onclick="document.querySelector('#keyboardPads0 .keys0').disabled = false; document.querySelector('#keyboardPads0 .keys0').focus();">Setup</button>
+		</div>
 		<div style="display:flex;" id="keyboardPads0">
 			<div>
 				<div style="text-align:center;">
@@ -137,9 +148,12 @@
 				</div>
 			</div>
 		</div>
+		<hr>
 
-		<h3>Keybord Pad1</h3>
-		<button onclick="document.querySelector('#keyboardPads1 .keys0').disabled = false; document.querySelector('#keyboardPads1 .keys0').focus();">Setup</button>
+		<div style="display:flex; gap:1rem;">
+			<h3 style="margin:0.5rem 0 0;">Keybord Pad 1</h3>
+			<button onclick="document.querySelector('#keyboardPads1 .keys0').disabled = false; document.querySelector('#keyboardPads1 .keys0').focus();">Setup</button>
+		</div>
 		<div style="display:flex;" id="keyboardPads1">
 			<div>
 				<div style="text-align:center;">
@@ -180,12 +194,21 @@
 				</div>
 			</div>
 		</div>
+		<hr>
 
-		<h3>Load local ROM</h3>
-		<input webkitdirectory type="file" onchange="for (const file of event.target.files) if (file.name === 'Rom.js') System.loadRom(file.webkitRelativePath.replace('/' + file.name, ''));">
-		<h3>Full screen</h3>
-		<button id="fullscreen">Fullscreen Mode</button>
+		<div style="display:flex; gap:1rem;">
+			<h3 style="margin:0.5rem 0 0;">Load local ROM</h3>
+			<input style="align-self:end;" webkitdirectory type="file" onchange="for (const file of event.target.files) if (file.name === 'Rom.js') System.loadRom(file.webkitRelativePath.replace('/' + file.name, ''));">
+		</div>
+		<hr>
+
+		<div style="display:flex; gap:1rem;">
+			<h3 style="margin:0.5rem 0 0;">Full screen</h3>
+			<button id="fullscreen">Fullscreen Mode</button>
+		</div>
+		<hr>
 	</div>
+
 	<div id="screenContainer">
 		<div id="screen" style="position:relative; width:256px; height:240px; overflow:hidden; transform-origin:0 0; transform:scale(1);">
 		</div>

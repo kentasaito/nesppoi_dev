@@ -18,6 +18,26 @@ export class System {
 		this._onResize();
 
 		// ゲームパッド
+		if (!localStorage.getItem('keyboardPads0_keys0')) {
+			localStorage.setItem('keyboardPads0_keys0', 'j');
+			localStorage.setItem('keyboardPads0_keys1', 'l');
+			localStorage.setItem('keyboardPads0_keys2', 'i');
+			localStorage.setItem('keyboardPads0_keys3', 'k');
+			localStorage.setItem('keyboardPads0_keys4', 'g');
+			localStorage.setItem('keyboardPads0_keys5', 'h');
+			localStorage.setItem('keyboardPads0_keys6', 'd');
+			localStorage.setItem('keyboardPads0_keys7', 'f');
+		}
+		if (!localStorage.getItem('keyboardPads1_keys0')) {
+			localStorage.setItem('keyboardPads1_keys0', 'ArrowLeft');
+			localStorage.setItem('keyboardPads1_keys1', 'ArrowRight');
+			localStorage.setItem('keyboardPads1_keys2', 'ArrowUp');
+			localStorage.setItem('keyboardPads1_keys3', 'ArrowDown');
+			localStorage.setItem('keyboardPads1_keys4', 'a');
+			localStorage.setItem('keyboardPads1_keys5', 's');
+			localStorage.setItem('keyboardPads1_keys6', 'z');
+			localStorage.setItem('keyboardPads1_keys7', 'x');
+		}
 		this.pads = [
 			new Pad(0),
 			new Pad(1),
