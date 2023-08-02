@@ -41,9 +41,10 @@ export class System {
 		});
 
 		// デフォルトROMロード
-		if (localStorage.getItem('romName')) {
-			System.loadRom(localStorage.getItem('romName'));
+		if (!localStorage.getItem('romName')) {
+			localStorage.setItem('romName', 'Demo');
 		}
+		System.loadRom(localStorage.getItem('romName'));
 	}
 
 	// ROMロード
