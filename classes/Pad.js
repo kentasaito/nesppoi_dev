@@ -3,16 +3,17 @@ export class Pad {
 	// コンストラクタ
 	constructor(padIndex) {
 		this.padIndex = padIndex;
+		this.inputIndexes = [];
 		this.keys = [];
 		this.keydown = Array(8).fill(false);
 		this.busy = false;
 
 		for (let keyIndex = 0; keyIndex < 8; keyIndex++) {
+			this.inputIndexes[keyIndex] = localStorage.getItem(`pads${this.padIndex}_keys${keyIndex}`);
+			document.querySelector(`#pads${this.padIndex} .keys${keyIndex}`).value = this.keys[keyIndex];
 			this.keys[keyIndex] = localStorage.getItem(`keyboardPads${this.padIndex}_keys${keyIndex}`);
 			document.querySelector(`#keyboardPads${this.padIndex} .keys${keyIndex}`).value = this.keys[keyIndex];
 		}
-
-		this.inputIndexes = [];
 
 		document.addEventListener('keydown', () => {
 			const keyIndex = this.keys.indexOf(event.key);
