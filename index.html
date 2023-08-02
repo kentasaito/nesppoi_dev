@@ -1,0 +1,90 @@
+<!doctype html>
+<meta charset="utf-8">
+<body style="margin:0;">
+	<div>
+
+		<h3>Pad0</h3>
+		<button onclick="document.querySelector('#pads0 .keys0').focus();">Setup</button>
+		<div style="display:flex;" id="pads0">
+			<div>
+				<div style="text-align:center;">
+					UP<br>
+					<input class="keys3" onfocus="this.select();" onkeydown="event.stopPropagation(); System.pads[0].configKey(3, event.key); return false;" style="width:5rem; text-align:center;">
+				</div>
+				<div style="display:flex;">
+					<div style="text-align:center;">
+						LEFT<br>
+						<input class="keys1" onfocus="this.select();" onkeydown="event.stopPropagation(); System.pads[0].configKey(1, event.key); return false;" style="width:5rem; text-align:center;">
+					</div>
+					<div style="text-align:center;">
+						RIGHT<br>
+						<input class="keys0" onfocus="this.select();" onkeydown="event.stopPropagation(); System.pads[0].configKey(0, event.key); return false;" style="width:5rem; text-align:center;">
+					</div>
+				</div>
+				<div style="text-align:center;">
+					DOWN<br>
+					<input class="keys2" onfocus="this.select();" onkeydown="event.stopPropagation(); System.pads[0].configKey(2, event.key); return false;" style="width:5rem; text-align:center;">
+				</div>
+			</div>
+			<div style="display:flex; padding-top:4rem;">
+				<div style="text-align:center; margin-left:1rem;">
+					SELECT<br>
+					<input class="keys4" onfocus="this.select();" onkeydown="event.stopPropagation(); System.pads[0].configKey(4, event.key); return false;" style="width:5rem; text-align:center;">
+				</div>
+				<div style="text-align:center;">
+					START<br>
+					<input class="keys5" onfocus="this.select();" onkeydown="event.stopPropagation(); System.pads[0].configKey(5, event.key); return false;" style="width:5rem; text-align:center;">
+				</div>
+				<div style="text-align:center; margin-left:1rem;">
+					B<br>
+					<input class="keys6" onfocus="this.select();" onkeydown="event.stopPropagation(); System.pads[0].configKey(6, event.key); return false;" style="width:5rem; text-align:center;">
+				</div>
+				<div style="text-align:center;">
+					A<br>
+					<input class="keys7" onfocus="this.select();" onkeydown="event.stopPropagation(); System.pads[0].configKey(7, event.key); return false;" style="width:5rem; text-align:center;">
+				</div>
+			</div>
+		</div>
+
+		<h3>pads1</h3>
+		<table id="pads1">
+			<tr>
+				<th>Right</th>
+				<th>Left</th>
+				<th>Down</th>
+				<th>Up</th>
+				<th>Select</th>
+				<th>Start</th>
+				<th>B</th>
+				<th>A</th>
+			</tr>
+			<tr>
+				<td><input class="keys0" onfocus="this.select();" onkeydown="event.stopPropagation(); System.pads[1].configKey(0, event.key); return false;" style="width:5rem; text-align:center;"></td>
+				<td><input class="keys1" onfocus="this.select();" onkeydown="event.stopPropagation(); System.pads[1].configKey(1, event.key); return false;" style="width:5rem; text-align:center;"></td>
+				<td><input class="keys2" onfocus="this.select();" onkeydown="event.stopPropagation(); System.pads[1].configKey(2, event.key); return false;" style="width:5rem; text-align:center;"></td>
+				<td><input class="keys3" onfocus="this.select();" onkeydown="event.stopPropagation(); System.pads[1].configKey(3, event.key); return false;" style="width:5rem; text-align:center;"></td>
+				<td><input class="keys4" onfocus="this.select();" onkeydown="event.stopPropagation(); System.pads[1].configKey(4, event.key); return false;" style="width:5rem; text-align:center;"></td>
+				<td><input class="keys5" onfocus="this.select();" onkeydown="event.stopPropagation(); System.pads[1].configKey(5, event.key); return false;" style="width:5rem; text-align:center;"></td>
+				<td><input class="keys6" onfocus="this.select();" onkeydown="event.stopPropagation(); System.pads[1].configKey(6, event.key); return false;" style="width:5rem; text-align:center;"></td>
+				<td><input class="keys7" onfocus="this.select();" onkeydown="event.stopPropagation(); System.pads[1].configKey(7, event.key); return false;" style="width:5rem; text-align:center;"></td>
+			</tr>
+		</table>
+				<h3>Load local ROM</h3>
+		<input webkitdirectory type="file" onchange="for (const file of event.target.files) if (file.name === 'Rom.js') System.loadRom(file.webkitRelativePath.replace('/' + file.name, ''));">
+		<h3>Full screen</h3>
+		<button id="fullscreen">Fullscreen Mode</button>
+	</div>
+	<div id="screenContainer">
+		<div id="screen" style="position:relative; width:256px; height:240px; overflow:hidden; transform-origin:0 0; transform:scale(1);">
+		</div>
+	</div>
+</body>
+
+<script>
+System = undefined;
+</script>
+<script type="module">
+import { System } from './System.js';
+window.System = System;
+System.start();
+</script>
