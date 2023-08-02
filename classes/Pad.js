@@ -56,8 +56,8 @@ export class Pad {
 		this.keys[keyIndex] = key;
 		localStorage.setItem(`keyboardPads${this.padIndex}_keys${keyIndex}`, this.keys[keyIndex]);
 		document.querySelector(`#keyboardPads${this.padIndex} .keys${keyIndex}`).value = this.keys[keyIndex];
-		document.querySelector(`#keyboardPads${this.padIndex} .keys${keyIndex}`).disabled = true;
 		document.querySelector(`#keyboardPads${this.padIndex} .keys${keyIndex}`).blur();
+		document.querySelector(`#keyboardPads${this.padIndex} .keys${keyIndex}`).disabled = true;
 		keyIndex++;
 		if (keyIndex < 8) {
 			document.querySelector(`#keyboardPads${this.padIndex} .keys${keyIndex}`).disabled = false;
@@ -83,35 +83,23 @@ export class Pad {
 			}
 			if (!stillBusy) this.busy = false;
 
-			if (this.setupIndex < 4) {
-				for (const [axesIndex, value] of this.gamepad[this.setupIndex < 4 ? 'axes' : 'button'].entries()) {
-					if (!this.busy && (this.setupIndex < 4 ? value : value.pressed)) {
-						this.inputIndexes[this.setupIndex] = [axesIndex, value];
-						localStorage.setItem(`pads${this.padIndex}_keys${this.setupIndex}`, JSON.stringify(this.inputIndexes[this.setupIndex]));
-						document.querySelector(`#pads${this.padIndex} .keys${this.setupIndex}`).value = JSON.stringify([axesIndex, value]);
-						this.setupIndex++;
+			for (const [index, value] of this.gamepad[this.setupIndex < 4 ? 'axes' : 'buttons'].entries()) {
+				if (!this.busy && (this.setupIndex < 4 ? value : value.pressed)) {
+					this.inputIndexes[this.setupIndex] = (this.setupIndex < 4 ? [index, value] : index);
+					localStorage.setItem(`pads${this.padIndex}_keys${this.setupIndex}`, JSON.stringify(this.inputIndexes[this.setupIndex]));
+					document.querySelector(`#pads${this.padIndex} .keys${this.setupIndex}`).value = JSON.stringify(this.inputIndexes[this.setupIndex]);
+					document.querySelector(`#pads${this.padIndex} .keys${this.setupIndex}`).blur();
+					document.querySelector(`#pads${this.padIndex} .keys${this.setupIndex}`).disabled = true;
+					this.setupIndex++;
+					if (this.setupIndex < 8) {
+						document.querySelector(`#pads${this.padIndex} .keys${this.setupIndex}`).disabled = false;
 						document.querySelector(`#pads${this.padIndex} .keys${this.setupIndex}`).focus();
 						this.busy = true;
-						break;
+					} else {
+						this.busy = false;
+						delete this.setupIndex;
 					}
-				}
-			} else {
-				for (const [buttonIndex, button] of this.gamepad.buttons.entries()) {
-					if (!this.busy && button.pressed) {
-						this.inputIndexes[this.setupIndex] = buttonIndex;
-						localStorage.setItem(`pads${this.padIndex}_keys${this.setupIndex}`, JSON.stringify(this.inputIndexes[this.setupIndex]));
-						document.querySelector(`#pads${this.padIndex} .keys${this.setupIndex}`).value = JSON.stringify(buttonIndex);
-						document.querySelector(`#pads${this.padIndex} .keys${this.setupIndex}`).blur();
-						this.setupIndex++;
-						if (this.setupIndex < 8) {
-							document.querySelector(`#pads${this.padIndex} .keys${this.setupIndex}`).focus();
-							this.busy = true;
-						} else {
-							this.busy = false;
-							delete this.setupIndex;
-						}
-						break;
-					}
+					break;
 				}
 			}
 		}
