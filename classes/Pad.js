@@ -56,9 +56,12 @@ export class Pad {
 		this.keys[keyIndex] = key;
 		localStorage.setItem(`keyboardPads${this.padIndex}_keys${keyIndex}`, this.keys[keyIndex]);
 		document.querySelector(`#keyboardPads${this.padIndex} .keys${keyIndex}`).value = this.keys[keyIndex];
+		document.querySelector(`#keyboardPads${this.padIndex} .keys${keyIndex}`).disabled = true;
 		document.querySelector(`#keyboardPads${this.padIndex} .keys${keyIndex}`).blur();
-		if (keyIndex + 1 < 8) {
-			document.querySelector(`#keyboardPads${this.padIndex} .keys${(keyIndex + 1) % 8}`).focus();
+		keyIndex++;
+		if (keyIndex < 8) {
+			document.querySelector(`#keyboardPads${this.padIndex} .keys${keyIndex}`).disabled = false;
+			document.querySelector(`#keyboardPads${this.padIndex} .keys${keyIndex}`).focus();
 		}
 	}
 
