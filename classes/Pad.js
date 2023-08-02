@@ -13,7 +13,6 @@ export class Pad {
 		}
 
 		this.inputIndexes = [];
-		this.buttonIndexes = [];
 
 		document.addEventListener('keydown', () => {
 			const keyIndex = this.keys.indexOf(event.key);
@@ -42,10 +41,10 @@ export class Pad {
 		Object.defineProperty(this, 'buttons', {
 			get: () => {
 				return {
-					select: this.gamepad && this.gamepad.buttons[this.buttonIndexes[0]] && this.gamepad.buttons[this.buttonIndexes[0]].pressed || this.keydown[4],
-					start: this.gamepad && this.gamepad.buttons[this.buttonIndexes[1]] && this.gamepad.buttons[this.buttonIndexes[1]].pressed || this.keydown[5],
-					b: this.gamepad && this.gamepad.buttons[this.buttonIndexes[2]] && this.gamepad.buttons[this.buttonIndexes[2]].pressed || this.keydown[6],
-					a: this.gamepad && this.gamepad.buttons[this.buttonIndexes[3]] && this.gamepad.buttons[this.buttonIndexes[3]].pressed || this.keydown[7],
+					select: this.gamepad && this.gamepad.buttons[this.inputIndexes[4]] && this.gamepad.buttons[this.inputIndexes[4]].pressed || this.keydown[4],
+					start: this.gamepad && this.gamepad.buttons[this.inputIndexes[5]] && this.gamepad.buttons[this.inputIndexes[5]].pressed || this.keydown[5],
+					b: this.gamepad && this.gamepad.buttons[this.inputIndexes[6]] && this.gamepad.buttons[this.inputIndexes[6]].pressed || this.keydown[6],
+					a: this.gamepad && this.gamepad.buttons[this.inputIndexes[7]] && this.gamepad.buttons[this.inputIndexes[7]].pressed || this.keydown[7],
 				}
 			},
 		});
@@ -94,7 +93,7 @@ export class Pad {
 			} else {
 				for (const [buttonIndex, button] of this.gamepad.buttons.entries()) {
 					if (!this.busy && button.pressed) {
-						this.buttonIndexes[this.setupIndex - 4] = buttonIndex;
+						this.inputIndexes[this.setupIndex] = buttonIndex;
 						document.querySelector(`#pads${this.padIndex} .keys${this.setupIndex}`).value = buttonIndex;
 						document.querySelector(`#pads${this.padIndex} .keys${this.setupIndex}`).blur();
 						this.setupIndex++;
