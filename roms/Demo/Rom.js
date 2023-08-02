@@ -90,7 +90,7 @@ export class Rom {
 					this.players[i].vx = System.pads[i].axes.x * this.parameters.initialVelocityX;
 				}
 			}
-			// 着地していなければ
+			// 浮遊中なら
 			else {
 
 				// 下に加速
@@ -103,18 +103,11 @@ export class Rom {
 					this.players[i].vy += this.parameters.floatingAccelerationY;
 				}
 
-				// 右が押されていて、一定速度以下なら
-				if (System.pads[i].axes.x === 1 && this.players[i].vx < this.parameters.floatingMaxVelocityX) {
+				// 左右が押されていて、一定速度以下なら
+				if (System.pads[i].axes.x && System.pads[i].axes.x * (this.players[i].vx - this.parameters.floatingMaxVelocityX * System.pads[i].axes.x) < 0) {
 
-					// 右に加速
-					this.players[i].vx += this.parameters.floatingAccelerationX;
-				}
-
-				// 左が押されていて、一定速度以下なら
-				if (System.pads[i].axes.x === -1 && this.players[i].vx > -this.parameters.floatingMaxVelocityX) {
-
-					// 左に加速
-					this.players[i].vx += -this.parameters.floatingAccelerationX;
+					// 左右に加速
+					this.players[i].vx += System.pads[i].axes.x * this.parameters.floatingAccelerationX;
 				}
 			}
 
