@@ -64,12 +64,11 @@ export class Pad {
 
 	// パッド設定
 	setup() {
+		if (!this.setupIndex) {
+			this.setupIndex = 0;
+			document.querySelector(`#pads${this.padIndex} .keys${this.setupIndex}`).focus();
+		}
 		if (this.gamepad) {
-			if (!this.setupIndex) {
-				this.setupIndex = 0;
-				document.querySelector(`#pads${this.padIndex} .keys${this.setupIndex}`).focus();
-			}
-
 			let stillBusy = false;
 			if (this.busy) {
 				for (const value of this.gamepad.axes) {
