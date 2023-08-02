@@ -12,7 +12,7 @@ export class Pad {
 			document.querySelector(`#keyboardPads${this.padIndex} .keys${keyIndex}`).value = this.keys[keyIndex];
 		}
 
-		this.axesIndexes = [];
+		this.inputIndexes = [];
 		this.buttonIndexes = [];
 
 		document.addEventListener('keydown', () => {
@@ -33,8 +33,8 @@ export class Pad {
 		Object.defineProperty(this, 'axes', {
 			get: () => {
 				return {
-					x: this.gamepad && this.axesIndexes[0] && this.axesIndexes[1] && ((this.gamepad.axes[this.axesIndexes[0][0]] === this.axesIndexes[0][1]) - (this.gamepad.axes[this.axesIndexes[1][0]] === this.axesIndexes[1][1])) || this.keydown[0] - this.keydown[1],
-					y: this.gamepad && this.axesIndexes[2] && this.axesIndexes[3] && ((this.gamepad.axes[this.axesIndexes[2][0]] === this.axesIndexes[2][1]) - (this.gamepad.axes[this.axesIndexes[3][0]] === this.axesIndexes[3][1])) || this.keydown[2] - this.keydown[3],
+					x: this.gamepad && this.inputIndexes[0] && this.inputIndexes[1] && ((this.gamepad.axes[this.inputIndexes[0][0]] === this.inputIndexes[0][1]) - (this.gamepad.axes[this.inputIndexes[1][0]] === this.inputIndexes[1][1])) || this.keydown[0] - this.keydown[1],
+					y: this.gamepad && this.inputIndexes[2] && this.inputIndexes[3] && ((this.gamepad.axes[this.inputIndexes[2][0]] === this.inputIndexes[2][1]) - (this.gamepad.axes[this.inputIndexes[3][0]] === this.inputIndexes[3][1])) || this.keydown[2] - this.keydown[3],
 				}
 			},
 		});
@@ -83,7 +83,7 @@ export class Pad {
 			if (this.setupIndex < 4) {
 				for (const [axesIndex, value] of this.gamepad.axes.entries()) {
 					if (!this.busy && value) {
-						this.axesIndexes[this.setupIndex] = [axesIndex, value];
+						this.inputIndexes[this.setupIndex] = [axesIndex, value];
 						document.querySelector(`#pads${this.padIndex} .keys${this.setupIndex}`).value = JSON.stringify([axesIndex, value]);
 						this.setupIndex++;
 						document.querySelector(`#pads${this.padIndex} .keys${this.setupIndex}`).focus();
