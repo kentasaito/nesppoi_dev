@@ -9,8 +9,8 @@ export class Pad {
 		this.busy = false;
 
 		for (let keyIndex = 0; keyIndex < 8; keyIndex++) {
-			this.inputIndexes[keyIndex] = localStorage.getItem(`pads${this.padIndex}_keys${keyIndex}`);
-			document.querySelector(`#pads${this.padIndex} .keys${keyIndex}`).value = this.keys[keyIndex];
+			this.inputIndexes[keyIndex] = JSON.parse(localStorage.getItem(`pads${this.padIndex}_keys${keyIndex}`));
+			document.querySelector(`#pads${this.padIndex} .keys${keyIndex}`).value = JSON.stringify(this.inputIndexes[keyIndex]);
 			this.keys[keyIndex] = localStorage.getItem(`keyboardPads${this.padIndex}_keys${keyIndex}`);
 			document.querySelector(`#keyboardPads${this.padIndex} .keys${keyIndex}`).value = this.keys[keyIndex];
 		}
@@ -84,6 +84,7 @@ export class Pad {
 				for (const [axesIndex, value] of this.gamepad.axes.entries()) {
 					if (!this.busy && value) {
 						this.inputIndexes[this.setupIndex] = [axesIndex, value];
+						localStorage.setItem(`pads${this.padIndex}_keys${this.setupIndex}`, JSON.stringify([axesIndex, value]));
 						document.querySelector(`#pads${this.padIndex} .keys${this.setupIndex}`).value = JSON.stringify([axesIndex, value]);
 						this.setupIndex++;
 						document.querySelector(`#pads${this.padIndex} .keys${this.setupIndex}`).focus();
@@ -95,7 +96,8 @@ export class Pad {
 				for (const [buttonIndex, button] of this.gamepad.buttons.entries()) {
 					if (!this.busy && button.pressed) {
 						this.inputIndexes[this.setupIndex] = buttonIndex;
-						document.querySelector(`#pads${this.padIndex} .keys${this.setupIndex}`).value = buttonIndex;
+						localStorage.setItem(`pads${this.padIndex}_keys${this.setupIndex}`, JSON.stringify(buttonIndex));
+						document.querySelector(`#pads${this.padIndex} .keys${this.setupIndex}`).value = JSON.stringify(buttonIndex);
 						document.querySelector(`#pads${this.padIndex} .keys${this.setupIndex}`).blur();
 						this.setupIndex++;
 						if (this.setupIndex < 8) {
