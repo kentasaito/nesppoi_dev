@@ -5,7 +5,6 @@ export class Pad {
 		this.padIndex = padIndex;
 		this.keys = [];
 		this.keydown = Array(8).fill(false);
-		this.setup = false;
 
 		for (let keyIndex = 0; keyIndex < 8; keyIndex++) {
 			this.keys[keyIndex] = localStorage.getItem(`keyboardPads${this.padIndex}_keys${keyIndex}`);
@@ -13,6 +12,7 @@ export class Pad {
 		}
 
 		this.axesIndexes = [0, 1];
+		this.axesValues = [1, -1];
 		this.buttonIndexes = [8, 9, 0, 1];
 
 		document.addEventListener('keydown', () => {
@@ -33,8 +33,8 @@ export class Pad {
 		Object.defineProperty(this, 'axes', {
 			get: () => {
 				return {
-					x: this.gamepad && Math.sign(this.gamepad.axes[this.axesIndexes[0]]) || this.keydown[0] - this.keydown[1],
-					y: this.gamepad && Math.sign(this.gamepad.axes[this.axesIndexes[1]]) || this.keydown[2] - this.keydown[3],
+					x: this.gamepad && ((this.gamepad.axes[this.axesIndexes[0]] === this.axesValues[0]) - (this.gamepad.axes[this.axesIndexes[0]] === this.axesValues[1])) || this.keydown[0] - this.keydown[1],
+					y: this.gamepad && ((this.gamepad.axes[this.axesIndexes[1]] === this.axesValues[0]) - (this.gamepad.axes[this.axesIndexes[1]] === this.axesValues[1])) || this.keydown[2] - this.keydown[3],
 				}
 			},
 		});
@@ -63,6 +63,24 @@ export class Pad {
 	}
 
 	// パッド設定
-	setupPad() {
+	setup() {
+		if (this.gamepad) {
+			if (!this.setupIndex) {
+				this.setupIndex = 0;
+				document.querySelector(`#pads${this.padIndex} .keys${this.setupIndex}`).focus();
+			}
+			if (this.setupIndex < 4) {
+				for (const [axesKey, value] of Object.entries(this.axes)) {
+console.log(axesKey, value);
+					if (value) {
+this.
+						this.setupIndex++;
+						document.querySelector(`#pads${this.padIndex} .keys${this.setupIndex}`).focus();
+						break;
+					}
+				}
+			} else {
+			}
+		}
 	}
 }

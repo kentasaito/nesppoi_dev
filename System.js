@@ -87,8 +87,8 @@ export class System {
 	// フレーム
 	static _frame() {
 		for (let i = 0; i < 2; i++) {
-			if (this.pads[i].setup) {
-				this.pads[i].setupPad();
+			if (this.pads[i].setupIndex !== undefined) {
+				this.pads[i].setup();
 			}
 		}
 		this.Rom.onFrame();
