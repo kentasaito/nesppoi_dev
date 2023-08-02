@@ -12,8 +12,8 @@ export class Pad {
 			document.querySelector(`#keyboardPads${this.padIndex} .keys${keyIndex}`).value = this.keys[keyIndex];
 		}
 
-		this.axesIndexes = Array(4).fill([null, null]);
-		this.buttonIndexes = Array(4).fill(null);
+		this.axesIndexes = [];
+		this.buttonIndexes = [];
 
 		document.addEventListener('keydown', () => {
 			const keyIndex = this.keys.indexOf(event.key);
@@ -33,8 +33,8 @@ export class Pad {
 		Object.defineProperty(this, 'axes', {
 			get: () => {
 				return {
-					x: this.gamepad && ((this.gamepad.axes[this.axesIndexes[0][0]] === this.axesIndexes[0][1]) - (this.gamepad.axes[this.axesIndexes[1][0]] === this.axesIndexes[1][1])) || this.keydown[0] - this.keydown[1],
-					y: this.gamepad && ((this.gamepad.axes[this.axesIndexes[2][0]] === this.axesIndexes[2][1]) - (this.gamepad.axes[this.axesIndexes[3][0]] === this.axesIndexes[3][1])) || this.keydown[2] - this.keydown[3],
+					x: this.gamepad && this.axesIndexes[0] && this.axesIndexes[1] && ((this.gamepad.axes[this.axesIndexes[0][0]] === this.axesIndexes[0][1]) - (this.gamepad.axes[this.axesIndexes[1][0]] === this.axesIndexes[1][1])) || this.keydown[0] - this.keydown[1],
+					y: this.gamepad && this.axesIndexes[2] && this.axesIndexes[3] && ((this.gamepad.axes[this.axesIndexes[2][0]] === this.axesIndexes[2][1]) - (this.gamepad.axes[this.axesIndexes[3][0]] === this.axesIndexes[3][1])) || this.keydown[2] - this.keydown[3],
 				}
 			},
 		});
@@ -42,10 +42,10 @@ export class Pad {
 		Object.defineProperty(this, 'buttons', {
 			get: () => {
 				return {
-					select: this.gamepad && this.gamepad.buttons[this.buttonIndexes[0]].pressed || this.keydown[4],
-					start: this.gamepad && this.gamepad.buttons[this.buttonIndexes[1]].pressed || this.keydown[5],
-					b: this.gamepad && this.gamepad.buttons[this.buttonIndexes[2]].pressed || this.keydown[6],
-					a: this.gamepad && this.gamepad.buttons[this.buttonIndexes[3]].pressed || this.keydown[7],
+					select: this.gamepad && this.gamepad.buttons[this.buttonIndexes[0]] && this.gamepad.buttons[this.buttonIndexes[0]].pressed || this.keydown[4],
+					start: this.gamepad && this.gamepad.buttons[this.buttonIndexes[1]] && this.gamepad.buttons[this.buttonIndexes[1]].pressed || this.keydown[5],
+					b: this.gamepad && this.gamepad.buttons[this.buttonIndexes[2]] && this.gamepad.buttons[this.buttonIndexes[2]].pressed || this.keydown[6],
+					a: this.gamepad && this.gamepad.buttons[this.buttonIndexes[3]] && this.gamepad.buttons[this.buttonIndexes[3]].pressed || this.keydown[7],
 				}
 			},
 		});
