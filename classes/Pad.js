@@ -5,14 +5,14 @@ export class Pad {
 		this.padIndex = padIndex;
 		this.keys = [];
 		this.keydown = Array(8).fill(false);
+		this.busy = false;
 
 		for (let keyIndex = 0; keyIndex < 8; keyIndex++) {
 			this.keys[keyIndex] = localStorage.getItem(`keyboardPads${this.padIndex}_keys${keyIndex}`);
 			document.querySelector(`#keyboardPads${this.padIndex} .keys${keyIndex}`).value = this.keys[keyIndex];
 		}
 
-		this.axesIndexes = [0, 1];
-		this.axesValues = [[1, -1], [1, -1]];
+		this.axesIndexes = [[0, 1], [0, -1], [1, 1], [1, -1]];
 		this.buttonIndexes = [8, 9, 0, 1];
 
 		document.addEventListener('keydown', () => {
@@ -33,8 +33,8 @@ export class Pad {
 		Object.defineProperty(this, 'axes', {
 			get: () => {
 				return {
-					x: this.gamepad && ((this.gamepad.axes[this.axesIndexes[0]] === this.axesValues[0][0]) - (this.gamepad.axes[this.axesIndexes[0]] === this.axesValues[0][1])) || this.keydown[0] - this.keydown[1],
-					y: this.gamepad && ((this.gamepad.axes[this.axesIndexes[1]] === this.axesValues[1][0]) - (this.gamepad.axes[this.axesIndexes[1]] === this.axesValues[1][1])) || this.keydown[2] - this.keydown[3],
+					x: this.gamepad && ((this.gamepad.axes[this.axesIndexes[0][0]] === this.axesIndexes[0][1]) - (this.gamepad.axes[this.axesIndexes[1][0]] === this.axesIndexes[1][1])) || this.keydown[0] - this.keydown[1],
+					y: this.gamepad && ((this.gamepad.axes[this.axesIndexes[2][0]] === this.axesIndexes[2][1]) - (this.gamepad.axes[this.axesIndexes[3][0]] === this.axesIndexes[3][1])) || this.keydown[2] - this.keydown[3],
 				}
 			},
 		});
@@ -69,17 +69,24 @@ export class Pad {
 				this.setupIndex = 0;
 				document.querySelector(`#pads${this.padIndex} .keys${this.setupIndex}`).focus();
 			}
-			if (this.setupIndex < 4) {
-				for (const [axesKey, value] of Object.entries(this.axes)) {
-console.log(axesKey, value);
-					if (value) {
-this.
-						this.setupIndex++;
-						document.querySelector(`#pads${this.padIndex} .keys${this.setupIndex}`).focus();
-						break;
-					}
+
+			let stillBusy = false;
+			if (this.busy) {
+				for (const value of this.gamepad.axes) {
+					if (value) stillBusy = true;
 				}
-			} else {
+			}
+			if (!stillBusy) this.busy = false;
+
+			for (const [axesIndex, value] of this.gamepad.axes.entries()) {
+				if (!this.busy && value) {
+					this.axesIndexes[this.setupIndex] = [axesIndex, value];
+					document.querySelector(`#pads${this.padIndex} .keys${this.setupIndex}`).value = JSON.stringify([axesIndex, value]);
+					this.setupIndex++;
+					document.querySelector(`#pads${this.padIndex} .keys${this.setupIndex}`).focus();
+					this.busy = true;
+					break;
+				}
 			}
 		}
 	}
