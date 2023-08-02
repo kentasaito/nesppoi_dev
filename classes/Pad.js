@@ -61,12 +61,4 @@ console.log(this.padIndex, keyIndex);
 			document.querySelector(`#pads${this.padIndex} .keys${(keyIndex + 1) % 8}`).focus();
 		}
 	}
-
-	/* Systemからしか呼ばれない準プライベートメソッド */
-	// フレーム時
-	onFrame() {
-		for (const [buttonIndex, button] of this.buttons.entries()) {
-			this.buttons[buttonIndex] = this.keydown[buttonIndex] || this.keydowned[buttonIndex];
-			this.keydowned[buttonIndex] = false;
-		}
-	}}
+}
