@@ -1,4 +1,4 @@
-import { Pad } from './classes/Pad.js';
+import { Pad } from './class/Pad.js';
 
 export class System {
 
@@ -69,7 +69,7 @@ export class System {
 
 	// ROMロード
 	static async loadRom(romName) {
-		const module = await import(`./roms/${romName}/Rom.js`);
+		const module = await import(`./rom/${romName}/Rom.js`);
 		localStorage.setItem('romName', romName);
 		this.screen.innerHTML = '';
 		this.Rom = module.Rom;

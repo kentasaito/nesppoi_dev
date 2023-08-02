@@ -1,7 +1,7 @@
 import { System } from '../../System.js';
-import { Sprite } from '../../classes/graphic/Sprite.js';
-import { Background } from '../../classes/graphic/Background.js';
-import { Text } from '../../classes/graphic/Text.js';
+import { Sprite } from '../../class/graphic/Sprite.js';
+import { Background } from '../../class/graphic/Background.js';
+import { Text } from '../../class/graphic/Text.js';
 import { parameters } from './parameters.js';
 
 // ロム
@@ -14,16 +14,16 @@ export class Rom {
 		this.parameters = parameters;
 
 		// 色
-		System.setColors((await import('../../assets/colors/nes.js')).colors);
+		System.setColors((await import('../../asset/colors/nes.js')).colors);
 
 		// パレット
-		System.setPalettes((await import('../../assets/palettes/familyBasic.js')).palettes);
+		System.setPalettes((await import('../../asset/palettes/familyBasic.js')).palettes);
 
 		// プレイヤー
 		this.players = [];
 		for (let i = 0; i < 2; i++) {
 			this.players[i] = new Sprite(
-				(await import(`./assets/tiles/sprites/player.js`)).tiles,
+				(await import(`./asset/tiles/sprites/player.js`)).tiles,
 				System.screen,
 				i,
 				[this.parameters.onLoadX, 8 * 30 - this.parameters.onLoadX][i],
@@ -37,8 +37,8 @@ export class Rom {
 
 		// 背景
 		new Background(
-			(await import(`./assets/tiles/backgrounds/main.js`)).tiles, 
-			(await import(`./assets/pattern/main.js`)).pattern,
+			(await import(`./asset/tiles/backgrounds/main.js`)).tiles, 
+			(await import(`./asset/pattern/main.js`)).pattern,
 			System.screen,
 			15,
 			0,
@@ -46,9 +46,9 @@ export class Rom {
 		);
 
 		// テキスト
-		const font = (await import('../../assets/font/misakiGothic2nd.js')).font;
-		new Text(font, '"ネスっぽい"へようこそ!', System.screen, 16, 8 * 10, 8 * 7);
-		new Text(font, 'Welcome to NESPPOI!', System.screen, 16, 8 * 7, 8 * 9);
+		const font = (await import('../../asset/font/misakiGothic2nd.js')).font;
+		new Text(font, '"ネスっぽい"へようこそ!', System.screen, 16, 8 * 9, 8 * 7);
+		new Text(font, 'Welcome to NESPPOI!', System.screen, 16, 8 * 6, 8 * 9);
 		new Text(font, '/rom/Demoをコピーしてオリジナルゲームをつくろう!', System.screen, 16, 8 * 1, 8 * 13);
 		new Text(font, 'Copy /rom/Demo and', System.screen, 16, 8 * 7, 8 * 15);
 		new Text(font, 'make your own original game!', System.screen, 16, 8 * 2, 8 * 16);
