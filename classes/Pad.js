@@ -8,7 +8,6 @@ export class Pad {
 
 		for (let keyIndex = 0; keyIndex < 8; keyIndex++) {
 			this.keys[keyIndex] = localStorage.getItem(`pads${this.padIndex}_keys${keyIndex}`);
-console.log(this.padIndex, keyIndex);
 			document.querySelector(`#pads${this.padIndex} .keys${keyIndex}`).value = this.keys[keyIndex];
 		}
 
