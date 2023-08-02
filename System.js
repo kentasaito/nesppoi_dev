@@ -11,9 +11,11 @@ export class System {
 			if (document.fullscreenElement) {
 				document.exitFullscreen();
 			} else {
-				this.screen.requestFullscreen();
+				document.getElementById('screenContainer').requestFullscreen();
 			}
 		});
+		window.addEventListener('resize', () => this._onResize());
+		this._onResize();
 
 		// ゲームパッド
 		this.pads = [
@@ -73,6 +75,13 @@ export class System {
 				style.sheet.insertRule(`[data-palette-index="${paletteIndex}"] [data-fill="${fill}"] { fill:var(--colors-${v}); }`);
 			}
 		}
+	}
+
+	// リサイズ時
+	static _onResize() {
+		const scale = Math.floor(Math.max(1, Math.min(window.innerWidth / 256, window.innerHeight / 240)));
+		this.screen.style.transform = `scale(${scale})`;
+		this.screen.style.marginLeft = `${(window.innerWidth - 256 * scale) / 2}px`;
 	}
 
 	// フレーム
