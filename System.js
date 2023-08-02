@@ -77,9 +77,6 @@ export class System {
 
 	// フレーム
 	static _frame() {
-		for (const pad of this.pads) {
-			pad.onFrame();
-		}
 		this.Rom.onFrame();
 		this.AnimationFrameRequestId = requestAnimationFrame(() => this._frame());
 	}

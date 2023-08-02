@@ -77,24 +77,17 @@ export class Rom {
 				this.players[i].y = this.parameters.landingLevel;
 
 				// Aボタンが押されていれば
-				if (System.pads[i].buttons[7]) {
+				if (System.pads[i].buttons.a) {
 
 					// 上に加速
 					this.players[i].vy = this.parameters.initialVelocityY;
 				}
 
-				// 右が押されていたら
-				if (System.pads[i].buttons[0]) {
+				// 左右が押されていたら
+				if (System.pads[i].axes.x) {
 
-					// 右に加速
-					this.players[i].vx = this.parameters.initialVelocityX;
-				}
-
-				// 左が押されていたら
-				if (System.pads[i].buttons[1]) {
-
-					// 右に加速
-					this.players[i].vx = -this.parameters.initialVelocityX;
+					// 左右に加速
+					this.players[i].vx = System.pads[i].axes.x * this.parameters.initialVelocityX;
 				}
 			}
 			// 着地していなければ
@@ -104,35 +97,32 @@ export class Rom {
 				this.players[i].vy += this.parameters.gravity;
 
 				// Aボタンが押されていれば
-				if (System.pads[i].buttons[7]) {
+				if (System.pads[i].buttons.a) {
 
 					// 上に加速
 					this.players[i].vy += this.parameters.floatingAccelerationY;
 				}
 
 				// 右が押されていて、一定速度以下なら
-				if (System.pads[i].buttons[0] && this.players[i].vx < this.parameters.floatingMaxVelocityX) {
+				if (System.pads[i].axes.x === 1 && this.players[i].vx < this.parameters.floatingMaxVelocityX) {
 
 					// 右に加速
 					this.players[i].vx += this.parameters.floatingAccelerationX;
 				}
 
 				// 左が押されていて、一定速度以下なら
-				if (System.pads[i].buttons[1] && this.players[i].vx > -this.parameters.floatingMaxVelocityX) {
+				if (System.pads[i].axes.x === -1 && this.players[i].vx > -this.parameters.floatingMaxVelocityX) {
 
 					// 左に加速
 					this.players[i].vx += -this.parameters.floatingAccelerationX;
 				}
 			}
 
-			// 右が押されていれば
-			if (System.pads[i].buttons[0]) {
-				this.players[i].scaleX = -1;
-			}
+			// 左右が押されていれば
+			if (System.pads[i].axes.x) {
 
-			// 左が押されていれば
-			if (System.pads[i].buttons[1]) {
-				this.players[i].scaleX = 1;
+				// プレイヤーの向きを変える
+				this.players[i].scaleX = -System.pads[i].axes.x;
 			}
 		}
 	}
