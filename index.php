@@ -7,14 +7,14 @@
 		<h3>pads<?php echo $padIndex; ?></h3>
 		<table id="pads<?php echo $padIndex; ?>">
 			<tr>
-				<th>A</th>
-				<th>B</th>
+				<th>Right</th>
+				<th>Left</th>
+				<th>Down</th>
+				<th>Up</th>
 				<th>Select</th>
 				<th>Start</th>
-				<th>Up</th>
-				<th>Down</th>
-				<th>Left</th>
-				<th>Right</th>
+				<th>B</th>
+				<th>A</th>
 			</tr>
 			<tr>
 <?php for ($keyIndex = 0; $keyIndex < 8; $keyIndex++): ?>
