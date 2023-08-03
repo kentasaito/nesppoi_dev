@@ -13,21 +13,21 @@ export class Sprite extends Container {
 			get: () => this._rotate,
 			set: value => {
 				this._rotate = Math.trunc(value / 90) * 90;
-				this.element.style.transform = `rotate(${this._rotate || 0}deg) scale(${this._scaleX || 1}, ${this._scaleY || 1})`;
+				this.element.style.transform = `scale(${this._scaleX || 1}, ${this._scaleY || 1}) rotate(${this._rotate || 0}deg)`;
 			},
 		});
 		Object.defineProperty(this, 'scaleX', {
 			get: () => this._scaleX,
 			set: value => {
 				this._scaleX = Math.sign(value);
-				this.element.style.transform = `rotate(${this._rotate || 0}deg) scale(${this._scaleX || 1}, ${this._scaleY || 1})`;
+				this.element.style.transform = `scale(${this._scaleX || 1}, ${this._scaleY || 1}) rotate(${this._rotate || 0}deg)`;
 			},
 		});
 		Object.defineProperty(this, 'scaleY', {
 			get: () => this._scaleY,
 			set: value => {
 				this._scaleY = Math.sign(value);
-				this.element.style.transform = `rotate(${this._rotate || 0}deg) scale(${this._scaleX || 1}, ${this._scaleY || 1})`;
+				this.element.style.transform = `scale(${this._scaleX || 1}, ${this._scaleY || 1}) rotate(${this._rotate || 0}deg)`;
 			},
 		});
 		Object.defineProperty(this, 'tileIndex', {

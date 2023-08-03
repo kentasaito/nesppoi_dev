@@ -50,7 +50,7 @@ export class Rom {
 				[this.parameters.onLoadX, 8 * 30 - this.parameters.onLoadX][i],
 				this.parameters.onLoadY,
 				0,
-				[-1, 1][i],
+				[1, -1][i],
 			);
 			this.players[i].vx = [this.parameters.onLoadVelocityX, -this.parameters.onLoadVelocityX][i];
 			this.players[i].vy = this.parameters.onLoadVelocityY;
@@ -118,7 +118,7 @@ export class Rom {
 			if (System.pads[i].axes.x) {
 
 				// プレイヤーの向きを変える
-				this.players[i].scaleX = -System.pads[i].axes.x;
+				this.players[i].scaleX = System.pads[i].axes.x;
 			}
 		}
 	}
