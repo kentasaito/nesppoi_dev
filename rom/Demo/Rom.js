@@ -47,8 +47,8 @@ export class Rom {
 
 		// テキスト
 		const fonts = [
-			(await import('../../../tool/font/misaki_gothic_2nd.js')).font,
-			(await import('../../../tool/font/ModernDOS8x8.js')).font,
+			(await import('../../asset/font/misaki_gothic_2nd.js')).font,
+			(await import('../../asset/font/ModernDOS8x8.js')).font,
 		];
 		new Text(fonts[0], '"ネスっぽい"へようこそ!', System.screen, 17, 8 * 9, 8 * 7);
 		new Text(fonts[1], 'Welcome to NESPPOI!', System.screen, 17, 8 * 6, 8 * 9);
