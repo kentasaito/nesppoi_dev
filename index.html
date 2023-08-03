@@ -13,6 +13,18 @@
 
 	<div id="menu" style="padding:0 2rem; display:none;">
 		<div style="display:flex; gap:1rem;">
+			<h3 style="margin:0.5rem 0 0;">Load local ROM</h3>
+			<input style="align-self:end;" webkitdirectory type="file" onchange="for (const file of event.target.files) if (file.name === 'Rom.js') System.loadRom(file.webkitRelativePath.replace('/' + file.name, ''));">
+		</div>
+		<hr>
+
+		<div style="display:flex; gap:1rem;">
+			<h3 style="margin:0.5rem 0 0;">Full screen</h3>
+			<button id="fullscreen">Fullscreen Mode</button>
+		</div>
+		<hr>
+
+		<div style="display:flex; gap:1rem;">
 			<h3 style="margin:0.5rem 0 0;">Pad 0</h3>
 			<button onclick="document.querySelector('#pads0 .keys0').disabled = false; System.pads[0].setup();">Setup</button>
 		</div>
@@ -193,18 +205,6 @@
 					<input class="keys7" disabled onfocus="this.select();" onkeydown="event.stopPropagation(); System.pads[1].configKey(7, event.key);" style="width:5rem; text-align:center;">
 				</div>
 			</div>
-		</div>
-		<hr>
-
-		<div style="display:flex; gap:1rem;">
-			<h3 style="margin:0.5rem 0 0;">Load local ROM</h3>
-			<input style="align-self:end;" webkitdirectory type="file" onchange="for (const file of event.target.files) if (file.name === 'Rom.js') System.loadRom(file.webkitRelativePath.replace('/' + file.name, ''));">
-		</div>
-		<hr>
-
-		<div style="display:flex; gap:1rem;">
-			<h3 style="margin:0.5rem 0 0;">Full screen</h3>
-			<button id="fullscreen">Fullscreen Mode</button>
 		</div>
 		<hr>
 	</div>
