@@ -14,33 +14,17 @@ export class Rom {
 		this.parameters = parameters;
 
 		// 色
-		System.setColors((await import('../../asset/colors/nes.js')).colors);
+		System.setColors((await import('../../asset/colors/nesppoi.js')).colors);
 
 		// パレット
-		System.setPalettes((await import('../../asset/palettes/familyBasic.js')).palettes);
-
-		// プレイヤー
-		this.players = [];
-		for (let i = 0; i < 2; i++) {
-			this.players[i] = new Sprite(
-				(await import(`./asset/tiles/sprites/player.js`)).tiles,
-				System.screen,
-				i,
-				[this.parameters.onLoadX, 8 * 30 - this.parameters.onLoadX][i],
-				this.parameters.onLoadY,
-				0,
-				[-1, 1][i],
-			);
-			this.players[i].vx = [this.parameters.onLoadVelocityX, -this.parameters.onLoadVelocityX][i];
-			this.players[i].vy = this.parameters.onLoadVelocityY;
-		}
+		System.setPalettes((await import('../../asset/palettes/nesppoi.js')).palettes);
 
 		// 背景
 		new Background(
 			(await import(`./asset/tiles/backgrounds/main.js`)).tiles, 
 			(await import(`./asset/pattern/main.js`)).pattern,
 			System.screen,
-			15,
+			0,
 			0,
 			this.parameters.landingLevel + 16,
 		);
@@ -50,11 +34,27 @@ export class Rom {
 			(await import('../../asset/font/misaki_gothic_2nd.js')).font,
 			(await import('../../asset/font/ModernDOS8x8.js')).font,
 		];
-		new Text(fonts[0], '"ネスっぽい"へようこそ!', System.screen, 17, 8 * 9, 8 * 7);
-		new Text(fonts[1], 'Welcome to NESPPOI!', System.screen, 17, 8 * 6, 8 * 9);
-		new Text(fonts[0], '/rom/Demoをコピーしてオリジナルゲームをつくろう!', System.screen, 17, 8 * 1, 8 * 13);
-		new Text(fonts[1], 'Copy /rom/Demo and', System.screen, 17, 8 * 7, 8 * 15);
-		new Text(fonts[1], 'make your own original game!', System.screen, 17, 8 * 2, 8 * 16);
+		new Text(fonts[0], '"ネスっぽい"へようこそ!', System.screen, 0, 8 * 9, 8 * 7);
+		new Text(fonts[1], 'Welcome to NESPPOI!', System.screen, 0, 8 * 6, 8 * 9);
+		new Text(fonts[0], '/rom/Demoをコピーしてオリジナルゲームをつくろう!', System.screen, 0, 8 * 1, 8 * 13);
+		new Text(fonts[1], 'Copy /rom/Demo and', System.screen, 0, 8 * 7, 8 * 15);
+		new Text(fonts[1], 'make your own original game!', System.screen, 0, 8 * 2, 8 * 16);
+
+		// プレイヤー
+		this.players = [];
+		for (let i = 0; i < 2; i++) {
+			this.players[i] = new Sprite(
+				(await import(`./asset/tiles/sprites/player.js`)).tiles,
+				System.screen,
+				i + 1,
+				[this.parameters.onLoadX, 8 * 30 - this.parameters.onLoadX][i],
+				this.parameters.onLoadY,
+				0,
+				[-1, 1][i],
+			);
+			this.players[i].vx = [this.parameters.onLoadVelocityX, -this.parameters.onLoadVelocityX][i];
+			this.players[i].vy = this.parameters.onLoadVelocityY;
+		}
 	}
 
 	// フレーム時
