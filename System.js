@@ -1,4 +1,5 @@
 import { Pad } from './class/Pad.js';
+import { Audio } from './class/sound/Audio.js';
 
 export class System {
 
@@ -85,6 +86,9 @@ export class System {
 		});
 		*/
 
+		// オーディオ
+		Audio.onStart();
+
 		// デフォルトROMロード
 		if (!localStorage.getItem('romName')) {
 			localStorage.setItem('romName', 'Demo');
@@ -138,6 +142,7 @@ export class System {
 			}
 		}
 		this.Rom.onFrame();
+		Audio.onFrame();
 		this.t++;
 		this.AnimationFrameRequestId = requestAnimationFrame(() => this._frame());
 	}
