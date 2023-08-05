@@ -5,6 +5,9 @@ export class System {
 	// システム開始
 	static start() {
 
+		// 時刻
+		this.t = 0;
+
 		// スクリーン
 		this.screen = document.getElementById('screen');
 		document.getElementById('fullscreen').addEventListener('click', () => {
@@ -135,6 +138,7 @@ export class System {
 			}
 		}
 		this.Rom.onFrame();
+		this.t++;
 		this.AnimationFrameRequestId = requestAnimationFrame(() => this._frame());
 	}
 }
