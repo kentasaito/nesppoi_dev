@@ -2,6 +2,7 @@ import { System } from '../../System.js';
 import { Sprite } from '../../class/graphic/Sprite.js';
 import { Background } from '../../class/graphic/Background.js';
 import { Text } from '../../class/graphic/Text.js';
+import { Sound } from '../../class/sound/Sound.js';
 import { parameters } from './parameters.js';
 
 // ロム
@@ -55,6 +56,11 @@ export class Rom {
 			this.players[i].vx = [this.parameters.onLoadVelocityX, -this.parameters.onLoadVelocityX][i];
 			this.players[i].vy = this.parameters.onLoadVelocityY;
 		}
+
+		// 効果音
+		for (const name of ['Jump']) {
+			Sound.addEffect(name, (await import(`./asset/waves/effects/${name}.js`)).waves());
+		}
 	}
 
 	// フレーム時
@@ -82,6 +88,9 @@ export class Rom {
 				// Aボタンが押されていれば
 				if (System.pads[i].buttons.a) {
 
+					// 効果音を開始
+					Sound.startEffect('Jump');
+
 					// 上に加速
 					this.players[i].vy = this.parameters.initialVelocityY;
 				}
@@ -104,6 +113,12 @@ export class Rom {
 
 					// 上に加速
 					this.players[i].vy += this.parameters.floatingAccelerationY;
+				}
+
+				// 押されていなければ
+				else {
+					// 効果音を開始
+					Sound.stopEffect();
 				}
 
 				// 左右が押されていて、一定速度以下なら
